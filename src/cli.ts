@@ -1,5 +1,9 @@
+import { parseArgumentsIntoOptions } from './utils/parse-arguments-into-options';
+
 import type { Args } from './types';
 
 export function cli(args: Args) {
-    console.log(args);
+    const options = parseArgumentsIntoOptions(args);
+
+    console.log(options);
 }
