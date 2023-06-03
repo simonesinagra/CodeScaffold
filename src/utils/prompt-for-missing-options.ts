@@ -1,41 +1,29 @@
-import arg from 'arg';
 import inquirer from 'inquirer';
 
-function parseArgumentsIntoOptions(rawArgs) {
-    const args = arg({
-        '--git': Boolean,
-        '--yes': Boolean,
-        '--install': Boolean,
-        '-g': '--git',
-        '-y': '--yes',
-        '-i': '--install'
-    }, {
-        argv: rawArgs.slice(2)
-    });
-    return {
-        git: args['--git'] || false,
-        install: args['--install'] || false,
-        skipPrompts: args['--yes'] || false,
-        template: args._[0]
-    };
-}
+import type { Options, RawOptions } from '../types';
 
 // default values for unspecified args
-const defaultOptions = {
+const defaultOptions: Options = {
     git: true,
     install: true,
     template: 'typescript'
 };
+
 // --yes flag is passed
-const skipOptions = {
+const skipOptions: Omit<Options, 'template'> = {
     git: false,
     install: false
 };
-async function promptForMissingOptions(options) {
+
+export async function promptForMissingOptions(
+    options: RawOptions
+): Promise<Options> {
     if (options.skipPrompts) {
         options = { ...options, ...skipOptions };
     }
+
     const questions = [];
+
     if (!options.template) {
         questions.push({
             type: 'list',
@@ -48,6 +36,7 @@ async function promptForMissingOptions(options) {
             default: defaultOptions.template
         });
     }
+
     if (!options.git) {
         questions.push({
             type: 'confirm',
@@ -56,6 +45,7 @@ async function promptForMissingOptions(options) {
             default: defaultOptions.git
         });
     }
+
     if (!options.install) {
         questions.push({
             type: 'confirm',
@@ -64,18 +54,12 @@ async function promptForMissingOptions(options) {
             default: defaultOptions.install
         });
     }
+
     const answers = await inquirer.prompt(questions);
+
     return {
         git: options.git || answers.git,
         install: options.install || answers.install,
         template: options.template || answers.template
     };
 }
-
-async function cli(args) {
-    const rawOptions = parseArgumentsIntoOptions(args);
-    const options = await promptForMissingOptions(rawOptions);
-    console.log(options);
-}
-
-export { cli };
