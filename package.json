@@ -1,0 +1,28 @@
+{
+  "name": "code-scaffold",
+  "version": "1.0.0",
+  "description": "An intuitive CLI tool that swiftly constructs project foundations. Easily generate structured codebases from templates, laying a solid groundwork for efficient development. Simplify project setup and focus on building great software.",
+  "main": "dist/cli.js",
+  "type": "module",
+  "bin": {
+    "create-project": "bin/code-scaffold.js"
+  },
+  "scripts": {
+    "build": "rollup -c rollup.config.js",
+    "dev": "rollup -c rollup.config.js --watch"
+  },
+  "keywords": [
+    "cli",
+    "scaffold",
+    "bootstrap"
+  ],
+  "author": "Simone Sinagra",
+  "license": "ISC",
+  "devDependencies": {
+    "@rollup/plugin-typescript": "11.1.1",
+    "@types/node": "20.2.5",
+    "rollup": "3.23.0",
+    "tslib": "2.5.3",
+    "typescript": "5.1.3"
+  }
+}
