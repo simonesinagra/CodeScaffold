@@ -1,5 +1,5 @@
-
-import { parseArgumentsIntoOptions } from './utils/parse-arguments-into-options'
+import { createProject } from './main';
+import { parseArgumentsIntoOptions } from './utils/parse-arguments-into-options';
 import { promptForMissingOptions } from './utils/prompt-for-missing-options';
 
 import type { Args } from './types';
@@ -9,5 +9,5 @@ export async function cli(args: Args) {
 
     const options = await promptForMissingOptions(rawOptions);
 
-    console.log(options);
+    await createProject(options);
 }

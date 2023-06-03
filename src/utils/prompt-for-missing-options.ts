@@ -11,8 +11,8 @@ const defaultOptions: Options = {
 
 // --yes flag is passed
 const skipOptions: Omit<Options, 'template'> = {
-    git: false,
-    install: false
+    git: true,
+    install: true
 };
 
 export async function promptForMissingOptions(
