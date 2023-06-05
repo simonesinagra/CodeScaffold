@@ -15,81 +15,81 @@ async function copyTemplateFiles(templateDir, targetDir) {
 }
 
 async function initGitRepo(targetDir) {
-    const result = await execa('git', ['init'], {
-        cwd: targetDir
+    const result = await execa("git", ["init"], {
+        cwd: targetDir,
     });
     if (result.failed) {
-        return Promise.reject(new Error('Failed to initialize git'));
+        return Promise.reject(new Error("Failed to initialize git"));
     }
     return true;
 }
 
 function installPackages(targetDir) {
     return projectInstall({
-        cwd: targetDir
+        cwd: targetDir,
     });
 }
 
 async function createProject(options) {
     const targetDirectory = process.cwd();
     const currentFileUrl = import.meta.url;
-    const templateDirectory = path.resolve(decodeURI(fileURLToPath(currentFileUrl)), '../../templates', options.template.toLowerCase());
+    const templateDirectory = path.resolve(decodeURI(fileURLToPath(currentFileUrl)), "../../templates", options.template.toLowerCase());
     const tasks = new Listr([
         {
-            title: 'Copy project files',
-            task: () => copyTemplateFiles(templateDirectory, targetDirectory)
+            title: "Copy project files",
+            task: () => copyTemplateFiles(templateDirectory, targetDirectory),
         },
         {
-            title: 'Initialize git',
+            title: "Initialize git",
             task: () => initGitRepo(targetDirectory),
-            enabled: () => options.git
+            enabled: () => options.git,
         },
         {
-            title: 'Install dependencies',
+            title: "Install dependencies",
             task: () => installPackages(targetDirectory),
             skip: () => {
                 if (!options.install) {
-                    return 'Pass --install or -i to automatically install dependencies';
+                    return "Pass --install or -i to automatically install dependencies";
                 }
-            }
-        }
+            },
+        },
     ]);
     try {
         await tasks.run();
-        console.log('%s Project ready', chalk.green.bold('DONE'));
+        console.log("%s Project ready", chalk.green.bold("DONE"));
     }
     catch (error) {
-        console.log('%s Error occurred', chalk.red.bold('ERROR'));
+        console.log("%s Error occurred", chalk.red.bold("ERROR"));
     }
 }
 
-const templates = ['javascript', 'typescript'];
+const templates = ["javascript", "typescript"];
 
 function checkTemplateValidity(template) {
-    return typeof template == 'string' && template in templates;
+    return typeof template == "string" && template in templates;
 }
 
 function parseArgumentsIntoOptions(rawArgs) {
     const args = arg({
-        '--git': Boolean,
-        '--yes': Boolean,
-        '--install': Boolean,
-        '-g': '--git',
-        '-y': '--yes',
-        '-i': '--install'
+        "--git": Boolean,
+        "--yes": Boolean,
+        "--install": Boolean,
+        "-g": "--git",
+        "-y": "--yes",
+        "-i": "--install",
     }, {
-        argv: rawArgs.slice(2)
+        argv: rawArgs.slice(2),
     });
     const template = args._[0]?.toLowerCase();
     const isTemplateValid = checkTemplateValidity(template);
     if (!isTemplateValid) {
-        console.log(`%s You passed incorrect template: ${args._[0]}. List of supported templates: ${templates.join(', ')}`, chalk.yellow.bold('WARNING'));
+        console.log(`%s You passed incorrect template: ${args._[0]}. List of supported templates: ${templates.join(", ")}`, chalk.yellow.bold("WARNING"));
     }
     return {
-        git: args['--git'] || false,
-        install: args['--install'] || false,
-        skipPrompts: args['--yes'] || false,
-        template: isTemplateValid ? template : undefined
+        git: args["--git"] || false,
+        install: args["--install"] || false,
+        skipPrompts: args["--yes"] || false,
+        template: isTemplateValid ? template : undefined,
     };
 }
 
@@ -97,12 +97,12 @@ function parseArgumentsIntoOptions(rawArgs) {
 const defaultOptions = {
     git: true,
     install: true,
-    template: 'typescript'
+    template: "typescript",
 };
 // --yes flag is passed
 const skipOptions = {
     git: true,
-    install: true
+    install: true,
 };
 async function promptForMissingOptions(options) {
     if (options.skipPrompts) {
@@ -111,37 +111,37 @@ async function promptForMissingOptions(options) {
     const questions = [];
     if (!options.template) {
         questions.push({
-            type: 'list',
-            name: 'template',
-            message: 'Please choose which project template to use',
+            type: "list",
+            name: "template",
+            message: "Please choose which project template to use",
             choices: [
-                { name: 'TypeScript', value: 'typescript' },
-                { name: 'JavaScript', value: 'javascript' },
+                { name: "TypeScript", value: "typescript" },
+                { name: "JavaScript", value: "javascript" },
             ],
-            default: defaultOptions.template
+            default: defaultOptions.template,
         });
     }
     if (!options.git) {
         questions.push({
-            type: 'confirm',
-            name: 'git',
-            message: 'Initialize a git repository?',
-            default: defaultOptions.git
+            type: "confirm",
+            name: "git",
+            message: "Initialize a git repository?",
+            default: defaultOptions.git,
         });
     }
     if (!options.install) {
         questions.push({
-            type: 'confirm',
-            name: 'install',
-            message: 'Install packages?',
-            default: defaultOptions.install
+            type: "confirm",
+            name: "install",
+            message: "Install packages?",
+            default: defaultOptions.install,
         });
     }
     const answers = await inquirer.prompt(questions);
     return {
         git: options.git || answers.git,
         install: options.install || answers.install,
-        template: options.template || answers.template
+        template: options.template || answers.template,
     };
 }
 

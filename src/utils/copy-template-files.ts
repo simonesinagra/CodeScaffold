@@ -1,11 +1,11 @@
-import ncp from 'ncp';
-import { promisify } from 'util';
+import ncp from "ncp";
+import { promisify } from "util";
 
 const copy = promisify(ncp);
 
 export async function copyTemplateFiles(
-    templateDir: string,
-    targetDir: string
+	templateDir: string,
+	targetDir: string
 ) {
-    return copy(templateDir, targetDir, { clobber: false });
+	return copy(templateDir, targetDir, { clobber: false });
 }
