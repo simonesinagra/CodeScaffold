@@ -3,14 +3,14 @@ import inquirer from "inquirer";
 import type { Options, RawOptions } from "../types";
 
 // default values for unspecified args
-const defaultOptions: Options = {
-	git: true,
-	install: true,
+const defaultOptions: Omit<Options, "projectName"> = {
+	git: false,
+	install: false,
 	template: "typescript",
 };
 
 // --yes flag is passed
-const skipOptions: Omit<Options, "template"> = {
+const skipOptions: Omit<Options, "projectName" | "template"> = {
 	git: true,
 	install: true,
 };
@@ -23,6 +23,15 @@ export async function promptForMissingOptions(
 	}
 
 	const questions = [];
+
+	if (!options.projectName) {
+		questions.push({
+			type: "input",
+			name: "project",
+			message: "Please type project's name (cannot be empty)",
+			validate: (value: string) => value.length > 0,
+		});
+	}
 
 	if (!options.template) {
 		questions.push({
@@ -60,6 +69,7 @@ export async function promptForMissingOptions(
 	return {
 		git: options.git || answers.git,
 		install: options.install || answers.install,
+		projectName: options.projectName || answers.project,
 		template: options.template || answers.template,
 	};
 }

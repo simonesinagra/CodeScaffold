@@ -1,41 +1,38 @@
 import arg from "arg";
-import chalk from "chalk";
 
-import { checkTemplateValidity } from "./check-template-validity";
+import { getTemplate } from "./get-template";
 
-import { Args, RawOptions, templates } from "../types";
+import type { Args, RawOptions } from "../types";
 
-export function parseArgumentsIntoOptions(rawArgs: Args): RawOptions {
+export async function parseArgumentsIntoOptions(
+	rawArgs: Args
+): Promise<RawOptions> {
 	const args = arg(
 		{
 			"--git": Boolean,
 			"--yes": Boolean,
 			"--install": Boolean,
+			"--template": String,
 			"-g": "--git",
 			"-y": "--yes",
 			"-i": "--install",
+			"-t": "--template",
 		},
 		{
 			argv: rawArgs.slice(2),
 		}
 	);
 
-	const template = args._[0]?.toLowerCase();
-	const isTemplateValid = checkTemplateValidity(template);
+	const rawTemplate = args["--template"];
+	const template = await getTemplate(rawTemplate);
 
-	if (!isTemplateValid) {
-		console.log(
-			`%s You passed incorrect template: ${
-				args._[0]
-			}. List of supported templates: ${templates.join(", ")}`,
-			chalk.yellow.bold("WARNING")
-		);
-	}
+	const projectName = args._[0];
 
 	return {
 		git: args["--git"] || false,
 		install: args["--install"] || false,
+		projectName,
 		skipPrompts: args["--yes"] || false,
-		template: isTemplateValid ? template : undefined,
+		template,
 	};
 }

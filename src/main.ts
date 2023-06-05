@@ -1,24 +1,25 @@
 import chalk from "chalk";
 import Listr from "listr";
 import path from "path";
-import { fileURLToPath } from "url";
 
+import { getTemplateDirectory } from "./utils/get-template-directory";
 import { copyTemplateFiles } from "./utils/copy-template-files";
+import { createProjectDirectory } from "./utils/create-project-directory";
 import { initGitRepo } from "./utils/init-git-repo";
 import { installPackages } from "./utils/install-packages";
 
 import type { Options } from "./types";
 
 export async function createProject(options: Options) {
-	const targetDirectory = process.cwd();
-	const currentFileUrl = import.meta.url;
-	const templateDirectory = path.resolve(
-		decodeURI(fileURLToPath(currentFileUrl)),
-		"../../templates",
-		options.template.toLowerCase()
-	);
+	const templateDirectory = getTemplateDirectory(options.template);
+	const targetDirectory = path.resolve(process.cwd(), options.projectName);
 
 	const tasks = new Listr([
+		{
+			title: "Create project directory",
+			task: () =>
+				createProjectDirectory(options.projectName, process.cwd()),
+		},
 		{
 			title: "Copy project files",
 			task: () => copyTemplateFiles(templateDirectory, targetDirectory),

@@ -2,11 +2,14 @@ export const templates = ["javascript", "typescript"] as const;
 
 export type Args = string[];
 
-export type Template = (typeof templates)[number];
+export type SupportedTemplate = (typeof templates)[number];
+export type CustomTemplate = `file:${string}`;
+export type Template = SupportedTemplate | CustomTemplate;
 
 export type RawOptions = {
 	git: boolean;
 	install: boolean;
+	projectName: string;
 	skipPrompts: boolean;
 	template?: Template;
 };
