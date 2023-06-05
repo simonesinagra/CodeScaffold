@@ -66,7 +66,7 @@ async function createProject(options) {
 const templates = ['javascript', 'typescript'];
 
 function checkTemplateValidity(template) {
-    return typeof template === 'undefined' || templates.includes(template);
+    return typeof template == 'string' && template in templates;
 }
 
 function parseArgumentsIntoOptions(rawArgs) {
