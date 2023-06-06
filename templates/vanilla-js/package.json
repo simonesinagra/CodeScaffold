@@ -1,0 +1,14 @@
+{
+  "name": "vanilla-js",
+  "version": "1.0.0",
+  "main": "src/index.js",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "dev": "node-dev --respawn --notify=false --clear .",
+    "start": "node-dev ."
+  },
+  "devDependencies": {
+    "node-dev": "8.0.0"
+  }
+}
