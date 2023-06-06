@@ -1,4 +1,4 @@
-export const templates = ["plain-js", "plain-ts"] as const;
+export const templates = ["plain-js", "plain-ts", "react-ts-tailwind"] as const;
 
 export type Args = string[];
 
