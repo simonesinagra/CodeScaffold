@@ -38,7 +38,7 @@ To add a new template:
 1. Build the project using `yarn build`.
 
 2. Register the command `create-project` as a command line interface running `yarn link`.
-You can always unlink by running `yarn unlink create-project`
+You can always unlink by running `yarn unlink`.
 
 3. From anywhere (aka the folder in which you want to start the project), run the command `create-project` and follow the instructions of the CLI to generate the new project.
 
