@@ -1,6 +1,6 @@
-# Vanilla-TS Playground
+# Plain-TS Playground
 
-Vanilla-TS is a TypeScript playground that provides an environment for experimenting with TypeScript code. This project allows you to quickly get started with TypeScript and provides a development environment for live-reloading.
+Plain-TS is a TypeScript playground that provides an environment for experimenting with TypeScript code. This project allows you to quickly get started with TypeScript and provides a development environment for live-reloading.
 
 Table of Contents
 - [Getting Started](#getting-started)
@@ -10,7 +10,7 @@ Table of Contents
 
 ## Getting Started
 
-To begin using Vanilla-TS, follow the instructions below:
+To begin using Plain-TS, follow the instructions below:
 
 ### Prerequisites
 

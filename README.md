@@ -17,9 +17,9 @@ This tool is inspired by the article series **How to Create Your Own CLI with No
 
 CodeScaffold provides the following templates for generating codebases:
 
-- vanilla-js
-- vanilla-ts
-- react-starter
+- plain-js
+- plain-ts
+- react-ts-tailwind
 - nextjs-starter
 - node-server
 - express-server

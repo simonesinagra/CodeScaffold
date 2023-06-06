@@ -1,4 +1,4 @@
-export const templates = ["javascript", "typescript"] as const;
+export const templates = ["plain-js", "plain-ts"] as const;
 
 export type Args = string[];
 
