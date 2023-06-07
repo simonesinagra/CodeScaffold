@@ -1,4 +1,10 @@
-export const templates = ["plain-js", "plain-ts", "react-ts-tailwind"] as const;
+export const templates = [
+	"plain-js",
+	"plain-ts",
+	"react-ts-tailwind",
+	"nextjs-ts-tailwind (Pages Router)",
+	"nextjs-ts-tailwind (App Router)",
+] as const;
 
 export type Args = string[];
 

@@ -1,4 +1,4 @@
-# Logs
+# logs
 logs
 *.log
 npm-debug.log*
@@ -7,10 +7,33 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
+# dependencies
 node_modules
+.pnp
+.pnp.js
+
+# local files
+.env*.local
+*.local
+
+# production
+build
 dist
 dist-ssr
-*.local
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts
+
+# next.js
+.next
+out
+
+# vercel
+.vercel
+
+# testing
+coverage
 
 # Editor directories and files
 .idea
@@ -20,3 +43,4 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+*.pem

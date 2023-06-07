@@ -20,10 +20,28 @@ CodeScaffold provides the following templates for generating codebases:
 - plain-js
 - plain-ts
 - react-ts-tailwind
-- nextjs-starter
-- node-server
-- express-server
-- npm-project
+- nextjs-ts-tailwind-pages
+- nextjs-ts-tailwind-app
+<!-- 
+see https://stackblitz.com/?starters=frontend
+
+- static (html/js/css)
+
+CREATIVE
+- plain-threejs
+- greensock-react
+
+BE
+- express-server ?
+- nestjs ?
+- graphql
+
+FULL STACK
+project with backend and frontend folders (see https://github.com/BendingSpoons/around)
+
+OTHER
+- npm-project ? 
+-->
 
 ## Adding New Templates
 
