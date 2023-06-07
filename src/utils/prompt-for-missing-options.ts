@@ -1,12 +1,12 @@
 import inquirer from "inquirer";
 
-import type { Options, RawOptions } from "../types";
+import { templates, type Options, type RawOptions } from "../types";
 
 // default values for unspecified args
 const defaultOptions: Omit<Options, "projectName"> = {
 	git: false,
 	install: false,
-	template: "typescript",
+	template: templates[0],
 };
 
 // --yes flag is passed
