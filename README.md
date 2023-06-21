@@ -51,6 +51,8 @@ To add a new template:
 
 2. Update the `templates` array inside the [types.ts](src/types.ts) file. The `SupportedTemplate` type will be updated accordingly.
 
+3. Update the template question inside `promptForMissingOptions` function of [prompt-for-missing-options.ts](src/utils/prompt-for-missing-options.ts) file.
+
 ## Usage
 
 1. Build the project using `yarn build`.

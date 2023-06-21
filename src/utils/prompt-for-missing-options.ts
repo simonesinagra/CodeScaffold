@@ -39,8 +39,11 @@ export async function promptForMissingOptions(
 			name: "template",
 			message: "Please choose which project template to use",
 			choices: [
-				{ name: "TypeScript", value: "typescript" },
-				{ name: "JavaScript", value: "javascript" },
+				{ name: "Plain TypeScript", value: "plain-ts" },
+				{ name: "Plain JavaScript", value: "plain-js" },
+				{ name: "React", value: "react-ts-tailwind" },
+				{ name: "Next.JS", value: "nextjs-ts-tailwind-pages" },
+				{ name: "Next.JS [app]", value: "nextjs-ts-tailwind-app" },
 			],
 			default: defaultOptions.template,
 		});
